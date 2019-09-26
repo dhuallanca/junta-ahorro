@@ -1,22 +1,34 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import {Routes, RouterModule} from '@angular/router';
 
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { GroupComponent } from './group/group.component';
-import { CreateComponent } from './group/create/create.component';
-import { PaymentComponent } from './payment/payment.component';
 
+const routes: Routes = [
+  {
+    path: '',
+    redirectTo: 'group-list',
+    pathMatch: 'full'
+  },
+  {
+    path: 'group-list',
+    loadChildren: () => import('./group/group.module').then(mod => mod.GroupModule)
+  },
+  {
+    path: 'payment-list/:idGroup',
+    loadChildren: () => import('./payment/payment.module').then(mod => mod.PaymentModule)
+  }
+
+];
 @NgModule({
   declarations: [
-    AppComponent,
-    GroupComponent,
-    CreateComponent,
-    PaymentComponent
+    AppComponent
   ],
   imports: [
     BrowserModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    RouterModule.forRoot(routes)
   ],
   providers: [],
   bootstrap: [AppComponent]
