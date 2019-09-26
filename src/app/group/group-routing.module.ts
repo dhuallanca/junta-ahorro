@@ -9,11 +9,11 @@ import { CreateComponent } from './create/create.component';
 const routes: Routes = [
   {
     path: '',
-    component: GroupComponent
-  },
-  {
-    path: 'create',
-    component: CreateComponent
+    component: GroupComponent,
+    children: [  {
+      path: 'create',
+      component: CreateComponent
+    }]
   }
 ];
 @NgModule({
